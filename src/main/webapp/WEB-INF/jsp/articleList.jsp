@@ -1,45 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- ここまで， JSPを書く時の決まり文句-->
-
-<!-- ここから，インポート宣言 -->    
-<%@page import="java.util.*"%>
-<%@page import="java.text.SimpleDateFormat" %>
-<%@ page import ="beans.Article" %>
-<%@page import="java.sql.Timestamp"%>
-<!-- ここまで，インポート宣言 -->
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="beans.Article" %>
+<%@ page import="java.sql.Timestamp" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Article list page</title>
+<style>
+    /* 簡単なスタイル */
+    .article-card {
+        border: 1px solid #ccc;
+        padding: 16px;
+        margin-bottom: 16px;
+        border-radius: 8px;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .article-card h3 {
+        margin: 0 0 8px;
+    }
+    .like-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .like-button:hover {
+        background-color: #0056b3;
+    }
+</style>
 </head>
 <body>
-	<label>記事一覧</label><br><br>
-	<!-- UpdateUserPageServletAnsにハイパーリンク．
-	ハイパーリンクによるアクセスは，GETアクセスとなり，サーブレットのdoGet()が呼ばれる． -->
-	<a href = ./UpdateUserPageServletAns>ユーザ情報更新</a><br><br>
-	<!-- EntryArticlePageServletにハイパーリンク．
-	ハイパーリンクによるアクセスは，GETアクセスとなり，サーブレットのdoGet()が呼ばれる． -->
-	<a href = ./EntryArticlePageServlet>新規記事登録</a><br><br>
+    <h1>記事一覧</h1>
+    <a href="./UpdateUserPageServletAns">ユーザ情報更新</a><br><br>
+    <a href="./EntryArticlePageServlet">新規記事登録</a><br><br>
 
-	<!-- 直前のサーブレットでrequestにsetAttributeしておいたオブジェクトを取り出す．
-	普通に取り出すとObject型になってしまうので，適宜キャストして変数に受け取る． -->
-	<%List<Article> aList = (List<Article>)( request.getAttribute("articleList") );%>
-	
-	<!-- javaの文法とhtmlを組み合わせて，記事リストを表示 -->
-	<%for(Article a : aList){%>
-		<!-- <label><%=String.valueOf(a.getId() )%></label> <br> -->
-		<!-- %の直後に=を付けると，そのまま値を表示できる．代わりに，<%out.print(a.getTitle());%>のように書くことも可能 -->
-		<label>タイトル：<br><%=a.getTitle()%></label> <br>
-		<label>本文：<br><%=a.getBody()%></label> <br>
-		<label>登録者：<br><%=a.getEditorId()%></label> <br>
-		<!-- 日時を指定のフォーマットで表示するための命令 -->
-		<%SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");%>
-		<label>登録日時：<br><%=sdf.format( a.getEntryDatetime() )%></label>
-		<br>
-		<br>
-	<%} %>
+    <% List<Article> aList = (List<Article>) (request.getAttribute("articleList")); %>
+
+    <% if (aList != null && !aList.isEmpty()) { %>
+        <% for (Article a : aList) { %>
+            <div class="article-card">
+                <h3>タイトル: <%= a.getTitle() %></h3>
+                <p><strong>本文:</strong><br><%= a.getBody() %></p>
+                <p><strong>登録者:</strong><br><%= a.getEditorId() %></p>
+                <% SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); %>
+                <p><strong>登録日時:</strong><br><%= sdf.format(a.getEntryDatetime()) %></p>
+                
+                <!-- いいねボタン -->
+                <form action="./LikeArticleServlet" method="GET" style="margin-top: 8px;">
+                    <input type="hidden" name="articleId" value="<%= a.getId() %>">
+                    <button type="submit" class="like-button">いいね</button>
+                </form>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>記事が存在しません。</p>
+    <% } %>
 </body>
 </html>
