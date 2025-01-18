@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,10 @@ public class LikeServlet extends HttpServlet {
             ps.close();
             con.close();
 
-            response.sendRedirect("LoginServlet"); // 元のページにリダイレクト
+            //response.sendRedirect("/"); // 元のページにリダイレクト出来る方法かもしれなため残してる
+            //下のが元ページにリダイレクト出来る方法。詳しくはLoginPageServlet参照
+            RequestDispatcher dispatcher = request.getRequestDispatcher("./WEB-INF/jsp/login.jsp");
+    		dispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
