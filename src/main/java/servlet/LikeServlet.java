@@ -32,12 +32,10 @@ public class LikeServlet extends HttpServlet {
             ps.close();
             con.close();
 
-            //response.sendRedirect("/"); // 元のページにリダイレクト出来る方法かもしれなため残してる
-            //下のが元ページにリダイレクト出来る方法。詳しくはLoginPageServlet参照
+            //response.sendRedirect("LoginServlet"); // 元のページにリダイレクト
+            //元のページにリダイレクトするプログラム詳しくはLoginPageServlet参照
             RequestDispatcher dispatcher = request.getRequestDispatcher("./WEB-INF/jsp/login.jsp");
     		dispatcher.forward(request, response);
-    		//適当
-    		
         } catch (Exception e) {
             e.printStackTrace();
         }
