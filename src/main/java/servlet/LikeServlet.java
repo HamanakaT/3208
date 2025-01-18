@@ -36,6 +36,8 @@ public class LikeServlet extends HttpServlet {
             //下のが元ページにリダイレクト出来る方法。詳しくはLoginPageServlet参照
             RequestDispatcher dispatcher = request.getRequestDispatcher("./WEB-INF/jsp/login.jsp");
     		dispatcher.forward(request, response);
+    		//適当
+    		
         } catch (Exception e) {
             e.printStackTrace();
         }
