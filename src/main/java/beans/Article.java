@@ -10,12 +10,14 @@ public class Article implements Serializable{ //implements Serializableが必要
 	private String body; //本文
 	private String editorId; //著者のユーザId
 	private Timestamp entryDatetime; //登録日時
+	private int likes;
+	private boolean isPrivate;
 
 	//カラのコンストラクタが必要
 	public Article() {
 	}
 
-	public Article(int id, String title, String body, String editorId, Timestamp entryDatetime) {
+	public Article(int id, String title, String body, String editorId, Timestamp entryDatetime,boolean isPrivate) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -25,8 +27,8 @@ public class Article implements Serializable{ //implements Serializableが必要
 	}
 
 	//idと登録日時が確定していない場合用のコンストラクタ
-	public Article(String title, String body, String editorId) {
-		this(-1, title, body, editorId, null);
+	public Article(String title, String body, String editorId ,boolean isPrivate) {
+		this(-1, title, body, editorId, null, isPrivate);
 	}
 
 	public int getId() {
@@ -68,5 +70,19 @@ public class Article implements Serializable{ //implements Serializableが必要
 	public void setEntryDatetime(Timestamp entryDatetime) {
 		this.entryDatetime = entryDatetime;
 	}
+	public int getLikes() {
+        return likes;
+    }
 
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+    // Getter & Setter
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
+    }
 }
