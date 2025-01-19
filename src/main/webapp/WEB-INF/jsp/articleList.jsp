@@ -38,10 +38,11 @@
 		<!-- 日時を指定のフォーマットで表示するための命令 -->
 		<%SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");%>
 		<label>登録日時：<br><%=sdf.format( a.getEntryDatetime() )%></label><br>
-		 <!-- いいねボタン -->
+		
+		<!-- いいねボタン -->
                 
-                    <input type="hidden" name="articleId" value="<%= a.getId() %>">
-                    <button type="submit" class="like-button">いいね</button>
+        <input type="hidden" name="articleId" value="<%= a.getId() %>">
+        <button type="submit" class="like-button">いいね</button>
                 
 		<br>
 	<%} %>

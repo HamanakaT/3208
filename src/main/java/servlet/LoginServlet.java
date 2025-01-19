@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import beans.User;
 import dao.Dao;
@@ -53,10 +52,6 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("./WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
-		// ログイン成功時にセッションへユーザIDを保存
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", user.getId());
-
 
 	}
 	
