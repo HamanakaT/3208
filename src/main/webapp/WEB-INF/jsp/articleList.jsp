@@ -39,10 +39,10 @@
 		<%SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");%>
 		<label>登録日時：<br><%=sdf.format( a.getEntryDatetime() )%></label><br>
 		 <!-- いいねボタン -->
-                <form action="./LikeArticleServlet" method="GET" style="margin-top: 8px;">
+                
                     <input type="hidden" name="articleId" value="<%= a.getId() %>">
                     <button type="submit" class="like-button">いいね</button>
-                </form>
+                
 		<br>
 	<%} %>
 </body>
